@@ -1,0 +1,10 @@
+<div class="hash-status">
+  <span class="hash-name">#<%= @tag.hashname %></span>
+  <p>投稿<strong><%= @posts.count %></strong>件</p>
+</div>
+
+<% @posts.each do |post| %>
+  <%= link_to post do %>
+    <%= image_tag post.photo.url(:thumb), class: "image-thumb" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,15 @@
+<%= form_with model: @post, local: true do |f| %>
+  <%= render 'shared/error_messages', model: f.object %>
+
+  <div class="form-group">
+    <%= f.label :photo, "画像" %>
+    <%= f.file_field :photo, class: "form-control-file" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :caption, "キャプション" %>
+    <%= f.text_area :caption, class: "form-control" %>
+  </div>
+    
+  <%= f.submit "投稿する", class: "btn btn-primary" %>
+<% end %>

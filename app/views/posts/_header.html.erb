@@ -1,0 +1,27 @@
+<div class="card-header">
+  <%= image_tag post.user.user_image.url(:icon), class: "user-icon" %>
+  <strong><%= link_to post.user.user_name, post.user %></strong>
+
+  <% if current_user == post.user %>
+    <button type="button" data-toggle="modal" data-target="#post-<%= post.id %>" class="btn pull-right">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="modal modal-post fade" id="post-<%= post.id %>" tabindex="-1"
+          role="dialog" aria-labelledby="label1" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <span class="link-font"><%= link_to '編集', edit_post_path(post) %></span>
+          </div>
+          <div class="modal-body">
+            <span class="denger-link"><%= link_to '削除', post_path(post), 
+                    method: :delete, data: { confirm: "本当に削除しますか？" } %></span>
+          </div>
+          <div class="modal-body-b">
+            <span data-dismiss="modal">キャンセル</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

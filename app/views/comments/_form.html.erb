@@ -1,0 +1,7 @@
+<%= form_with model: comment, local: true do |f| %>
+  <div class="form-inline">
+    <%= f.text_field :content, class: "form-control", placeholder: "コメントを追加..."%>
+    <%= hidden_field_tag :post_id, post.id %>
+    <%= f.submit "投稿する", class: "btn btn-primary" %>
+  </div>
+<% end %>

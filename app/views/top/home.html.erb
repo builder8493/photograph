@@ -1,0 +1,103 @@
+<% if logged_in? %>
+  <div class="row">
+    <div class="col-md-8">
+      <% @posts.each do |post| %>
+        <div class="card post-card">
+          <%= render 'posts/header', post: post %>
+
+          <div class="card-body">
+            
+            <%= link_to post do %>
+              <%= image_tag post.photo.to_s %>
+            <% end %>
+             
+            <div>
+              <%= render 'posts/navbar', post: post %>
+
+              
+              <% unless post.caption.blank? %>
+                <div><strong><%= link_to post.user.user_name, post.user %></strong>
+                <%= render_with_hashtags post.caption %></div>
+              <% end %>
+
+              <%= link_to_if(post.comments.count > 2, "コメント#{post.comments.count}件をすべて表示",
+                                   post, class: 'text-muted') {} %>
+              
+              <% post.comments.limit(2).each do |comment| %>
+                <div><strong><%= link_to comment.user.user_name, comment.user %></strong>
+                <%= comment.content %></div>
+              <% end %>
+            </div>
+              
+            <%= render 'comments/form', comment: @comment, post: post %>
+            
+          </div>
+        </div>
+      <% end %>
+
+      <%= paginate @posts %>
+    </div>
+
+    <aside class="col-md-4">
+      <%= image_tag current_user.user_image.url(:icon_lg), class: 'user-icon' %>
+      <div class="current-user">
+        <strong><%= link_to current_user.user_name, current_user %></strong>
+        <%= current_user.name %>
+      </div>
+
+      <div class="users-card">
+
+        <p>おすすめ</p>
+
+        <% @users.each do |user| %>
+          <div class="user-list">
+            <%= image_tag user.user_image.url(:icon), class: 'user-icon' %>
+            <div class="user-status">
+              <strong><%= link_to user.user_name, user %></strong>
+              <%= render 'relationships/follow_button', user: user %>
+            </div>
+          </div>
+        <% end %>
+        
+      </div>
+    </aside>
+  </div>
+  
+<% else %>
+
+  <div class="enter-cards">
+    <div class="signup-card">
+      <h1>Photograph</h1>
+
+      <%= form_with model: @user, local: true do |f| %>
+        <%= render 'shared/error_messages', model: f.object %>
+
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <div class="form-group">
+              <%= f.email_field :email, placeholder: "メールアドレス", class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.text_field :name, placeholder: "フルネーム", class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.text_field :user_name, placeholder: "ユーザーネーム", class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.password_field :password, placeholder: "パスワード", class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.submit "登録する", class: "btn btn-primary btn-block" %>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+
+    <div class="change-form">
+      <p>アカウントをお持ちですか？<%= link_to 'ログインする', login_path, class: 'text-primary' %></p>
+    </div>
+  </div>
+  
+<% end %>

@@ -1,0 +1,38 @@
+<div class="show-post">
+  <%= image_tag @post.photo.url(:show) %>
+  <aside>
+    <div class="card">
+      <%= render 'posts/header', post: @post %>
+      <div class="comments-box">
+
+        
+        <% unless @post.caption.blank? %>
+          <div class="comment-list">
+            <%= image_tag @post.user.user_image.url(:icon), class: 'user-icon' %>
+            <div class="comment-text">
+              <strong><%= link_to @post.user.user_name, @post.user %></strong>
+              <%= render_with_hashtags @post.caption %>
+            </div>
+          </div>
+        <% end %>
+
+        <% @comments.each do |comment| %>
+          <div class="comment-list">
+            <%= image_tag comment.user.user_image.url(:icon), class: 'user-icon' %>
+            <div class="comment-text">
+              <strong><%= link_to comment.user.user_name, comment.user %></strong>
+              <%= comment.content %>
+            </div>
+          </div>
+        <% end %>
+        
+      </div>
+
+      <div class="card-footer">
+        <%= render 'posts/navbar', post: @post %>
+        <%= render 'comments/form', comment: @comment, post: @post %>
+      </div>
+      
+    </div>
+  </aside>
+</div>
