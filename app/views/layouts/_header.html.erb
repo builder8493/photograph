@@ -1,27 +1,30 @@
-<% if logged_in? %>
-  <header class="navbar navbar-fixed-top navbar-light　bg-light">
-    <div class="container">
-      <%= link_to "Photograph", root_path, id: "logo" %>
+<header class="navbar navbar-fixed-top navbar-light　bg-light">
+  <div class="container">
+    <%= link_to "Photograph", root_path, id: "logo" %>
 
-      <nav>
-        <ul class="nav navbar-nav navbar-left"> 
+    <nav>
+      <ul class="nav navbar-nav navbar-left">
+        <% if current_user %>
           <li><%= link_to "ログアウト", logout_path, method: :delete,
                     data: { confirm: "本当にログアウトしますか？" } %></li>
           <li><%= link_to "投稿", new_post_path %></li>
           <li><%= link_to "マイページ", current_user %></li>
-        </ul>
-      </nav>
-
-      <%= form_with url: root_path, method: :get, local: true, class: 'navbar-form navbar-right' do %>
-          <div class="input-group">
-            <%= text_field_tag :search, '', placeholder: 'Search', class: 'form-control' %>
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit">
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
-            </div>
-          </div>
+        <% else %>
+          <li><%= link_to "登録", signup_path %></li>
+          <li><%= link_to "ログイン", login_path %></li>
         <% end %>
-    </div>
-  </header>
-<% end %>
+      </ul>
+    </nav>
+
+    <%= form_with url: root_path, method: :get, local: true, class: 'navbar-form navbar-right' do %>
+        <div class="input-group">
+          <%= text_field_tag :search, '', placeholder: 'Search', class: 'form-control' %>
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+      <% end %>
+  </div>
+</header>

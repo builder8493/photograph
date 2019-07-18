@@ -1,9 +1,15 @@
-<% unless current_user == user %>
-  <div class="follow_form">
-    <% if current_user.following?(user) %>
-      <%= render 'relationships/unfollow', user: user %>
-    <% else %>
-      <%= render 'relationships/follow', user: user %>
-    <% end %>
-  </div>
+<% if current_user %>
+  <% unless current_user == user %>
+    <div class="follow_form">
+      <% if current_user.following?(user) %>
+        <%= render 'relationships/unfollow', user: user %>
+      <% else %>
+        <%= render 'relationships/follow', user: user %>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <%= form_with model: Relationship.new, class: 'follow' do |f| %>
+    <%= f.submit 'フォローする', class: 'follow-btn' %>
+  <% end %>
 <% end %>

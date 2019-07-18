@@ -5,7 +5,7 @@ class FavoritesController < ApplicationController
   def create
     current_user.like(@post)
     respond_to do |format|
-      format.html { redirect_to @post }
+      format.html { redirect_back(fallback_location: root_path) }
       format.js
     end
   end
@@ -13,7 +13,7 @@ class FavoritesController < ApplicationController
   def destroy
     current_user.unlike(@post)
     respond_to do |format|
-      format.html { redirect_to @post }
+      format.html { redirect_back(fallback_location: root_path) }
       format.js
     end
   end

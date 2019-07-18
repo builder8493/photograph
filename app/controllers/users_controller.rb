@@ -1,9 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, except: :create
+  before_action :logged_in_user, except: [:show, :new, :create]
 
   def show
     @posts = @user.posts
+  end
+
+  def new
+    @user = User.new
   end
 
   def create

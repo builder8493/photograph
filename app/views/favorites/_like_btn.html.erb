@@ -1,0 +1,15 @@
+<div class="like-btn">
+  <% if current_user %>
+    <% if current_user.like?(post) %>
+      <%= render 'favorites/unlike', post: post %>
+    <% else %>
+      <%= render 'favorites/like', post: post %>        
+    <% end %>
+  <% else %>
+    <%= form_with model: Favorite.new, class: 'like' do |f| %>
+      <%= button_tag type: 'submit', class: "btn" do %>
+        <i class="far fa-heart heart-icon"></i>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
