@@ -1,6 +1,15 @@
 <% if logged_in? %>
   <div class="row">
     <div class="col-md-8">
+
+      <% if params[:search] %>
+        <% if @posts.count != 0 %>
+          <h1>"<%= params[:search] %>"を含む投稿</h1>
+        <% else %>
+          <h1>"<%= params[:search] %>"を含む投稿はありません</h1>
+        <% end %>
+      <% end %>
+
       <% @posts.each do |post| %>
         <div class="card post-card">
           <%= render 'posts/header', post: post %>
