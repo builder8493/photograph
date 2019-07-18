@@ -1,35 +1,22 @@
 <section>
   <div>
-    <% if current_user.like?(post) %>
-      <%= form_with model: current_user.favorites.find_by(post_id: post.id),
-                  method: :delete, local: true do |f| %>
-        <%= hidden_field_tag :post_id, post.id %>
-        <%= button_tag type: 'submit', class: "btn" do %>
-          <i class="fas fa-heart heart-icon"></i>
-        <% end %>
+    <div class="like-btn">
+      <% if current_user.like?(post) %>
+        <%= render 'favorites/unlike', post: post %>
+      <% else %>
+        <%= render 'favorites/like', post: post %>        
       <% end %>
-    <% else %>
-      <%= form_with model: current_user.favorites.build, local: true do |f| %>
-        <%= hidden_field_tag :post_id, post.id %>
-        <%= button_tag type: 'submit', class: "btn" do %>
-          <i class="far fa-heart heart-icon"></i>
-        <% end %>
-      <% end %>
-    <% end %>
-
+    </div>
+    
     <%= link_to post do %>
       <i class="far fa-comment comment-icon"></i>
     <% end %>
   </div>
   
-  <% unless post.users.count == 0%>
-    <button type="button" data-toggle="modal" data-target="#like-<%= post.id %>" class="btn">
-      <strong>いいね！<%= post.users.count %>件</strong>
-    </button>
-    <div class="modal fade" id="like-<%= post.id %>" tabindex="-1"
-        role="dialog" aria-labelledby="label1" aria-hidden="true">
-      <%= render 'shared/users_modal', users: post.users, title: "いいね！"%>
-    </div>
-  <% end %>
+  
+  <div class="like-user">
+    <%= render 'favorites/like_count', post: post %>
+  </div>
+
   
 </section>

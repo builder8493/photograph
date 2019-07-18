@@ -1,0 +1,11 @@
+<% if user.following.count == 0 %>
+  <strong>0</strong>人をフォロー中
+<% else %>
+  <button type="button" data-toggle="modal" data-target="#follower" class="following-btn">
+    <strong><%= user.following.count %></strong>人をフォロー中
+  </button>
+  <div class="modal fade" id="follower" tabindex="-1"
+      role="dialog" aria-labelledby="label1" aria-hidden="true">
+    <%= render 'shared/users_modal', users: user.following, title: "フォロー中"%>
+  </div>
+<% end %>

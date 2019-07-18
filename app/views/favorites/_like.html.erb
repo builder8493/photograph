@@ -1,0 +1,6 @@
+<%= form_with model: current_user.favorites.build, remote: true, class: 'like' do |f| %>
+  <%= hidden_field_tag :post_id, post.id %>
+  <%= button_tag type: 'submit', class: "btn" do %>
+    <i class="far fa-heart heart-icon"></i>
+  <% end %>
+<% end %>

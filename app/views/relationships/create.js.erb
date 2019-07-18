@@ -1,0 +1,8 @@
+document.querySelectorAll('.follow').forEach(function(f) {
+    f.addEventListener('ajax:success', function() {
+        var follow_form = f.parentNode;
+        follow_form.innerHTML = '<%= j(render 'relationships/unfollow', user: @user ) %>';
+        document.querySelector('.follower-count').innerHTML = '<%= j(render 'users/follower', user: @user) %>';
+    });
+});
+

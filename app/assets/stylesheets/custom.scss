@@ -161,13 +161,18 @@
               }
           }
           
+          .follower-count,
+          .following-count,
           .follower-btn,
           .following-btn,
-          .follow-count,
           .post-count {
               background-color: #fafafa;
               display: inline-block;
               border: none;
+          }
+          
+          .like-btn {
+              display: inline;
           }
           /* modal */
           

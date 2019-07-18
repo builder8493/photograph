@@ -16,29 +16,13 @@
     <p>
       <div class="post-count">投稿<strong><%= @user.posts.count %></strong>件</div>
 
-      <% if @user.follower.count == 0 %>
-        <div class="follow-count">フォロワー<strong class="follower-count">0</strong>人</div>
-      <% else %>
-        <button type="button" data-toggle="modal" data-target="#following" class="follower-btn">
-          フォロワー<strong class="follower-count"><%= @user.follower.count %></strong>人
-        </button>
-        <div class="modal fade" id="following" tabindex="-1"
-            role="dialog" aria-labelledby="label1" aria-hidden="true">
-          <%= render 'shared/users_modal', users: @user.follower, title: "フォロワー"%>
-        </div>
-      <% end %>
-
-      <% if @user.following.count == 0 %>
-        <div class="follow-count"><strong>0</strong>人をフォロー中</div>
-      <% else %>
-        <button type="button" data-toggle="modal" data-target="#follower" class="following-btn">
-          <strong><%= @user.following.count %></strong>人をフォロー中
-        </button>
-        <div class="modal fade" id="follower" tabindex="-1"
-            role="dialog" aria-labelledby="label1" aria-hidden="true">
-          <%= render 'shared/users_modal', users: @user.following, title: "フォロー中"%>
-        </div>
-      <% end %>
+      <div class="follower-count">
+        <%= render 'users/follower', user: @user %>
+      </div>
+      
+      <div class="following-count">
+        <%= render 'users/following', user: @user %>
+      </div>
       
      </p>
     <strong><%= @user.name %></strong>

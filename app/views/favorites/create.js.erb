@@ -1,0 +1,7 @@
+document.querySelectorAll('.like').forEach(function(btn) {
+    btn.addEventListener('ajax:success', function() {
+        var like_btn = btn.parentNode;
+        like_btn.innerHTML = '<%= j(render 'favorites/unlike', post: @post ) %>';
+        document.querySelector('.like-user').innerHTML = '<%= j(render 'favorites/like_count', post: @post) %>';
+    });
+});
