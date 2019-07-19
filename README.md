@@ -1,24 +1,43 @@
-# README
+# Photograph
+[本番環境(heroku)](https://photograph5270.herokuapp.com/)
+## デモアカウント
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```md
+メールアドレス:email0@example.com
+パスワード:password
+```
+## 機能と使用技術
+- **ユーザー(bcrypt, carrierwave, mini_magick)**  
+deviceなどのgemは使わずにログイン機能を実装。編集画面からユーザーアイコンを設定できる。(ユーザー登録時にはデフォルトのものを設定)
 
-Things you may want to cover:
+- **画像の投稿(carrierwave, mini_magick)**  
+ページ(投稿一覧、投稿詳細、ユーザー詳細)ごとの表示に合わせてリサイズ。自分の投稿のみ編集、削除が可能。
 
-* Ruby version
+- **ハッシュタグ**  
+投稿のキャプションに"#(文字列)"を含めるとリンク(そのハッシュタグを含む投稿一覧ページに飛べる)を生成。"#"は全角にも対応。
 
-* System dependencies
+- **ページネーション(kaminari, kaminari-bootstrap)**  
+投稿6件ごとにページ分割。
 
-* Configuration
+- **検索**  
+like句による曖昧検索。(投稿のキャプションから検索)
 
-* Database creation
+- **コメント**  
+投稿とログイン中のユーザーに紐づいたコメントを投稿できる。一覧ページでは2件まで表示(2件を超えていたら「コメント○件を全て表示」リンクを表示)、詳細ページではスクロールで表示。
 
-* Database initialization
+- **フォロー,いいね(ajax)**  
+非同期通信を利用。ログインせずにリンクをクリックするとログインページへ遷移する。投稿にいいねした人、フォロワー、フォローしている人の一覧はモーダル表示。
 
-* How to run the test suite
+- **おすすめユーザーの表示**  
+ランダムでユーザーを5人表示。
 
-* Services (job queues, cache servers, search engines, etc.)
+### その他
+- **日本語化(rails-i18n)**  
+エラーメッセージ等を日本語に変更。
 
-* Deployment instructions
+- **デザイン(bootstrap, sass)**  
+CSSファイルをSCSSに変更。※レスポンシブデザイン非対応
 
-* ...
+## 環境
+- 言語(Ruby 2.5.1)
+- フレームワーク(Rails 5.2.3)
